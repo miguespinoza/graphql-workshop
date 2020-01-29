@@ -1,0 +1,37 @@
+const schema = `
+  type user {
+    id: ID!
+    name: String
+    expenses(initialDate: String, endDate: String): [expense]
+  }
+
+  enum paymentMethod {
+    CASH
+    CREDIT_CARD
+    MSI
+    DEBIT
+  }
+
+  type expense { 
+    amount: Float!
+    timestamp: String!
+    method: paymentMethod
+  }
+
+  type Query {
+    user(id: String!): user
+  }
+
+  type Mutation{
+    setExpense( userId: ID!): expense
+  }
+
+  schema {
+    query: Query
+    mutation: Mutation
+  }
+`;
+
+module.exports = {
+  schema
+}

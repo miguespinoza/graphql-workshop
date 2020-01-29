@@ -1,0 +1,39 @@
+@startuml execution flow
+
+activate server
+  == First level ==
+  server -> getAuthor: resolve author
+  activate getAuthor
+    getAuthor -> db
+    activate db
+
+    db -> getAuthor
+    deactivate db
+
+    getAuthor -> server
+  deactivate getAuthor
+  == Second level ==
+    
+  server -> getAuthorPosts: resolve posts
+  activate getAuthorPosts
+    getAuthorPosts -> db
+    activate db
+      db -> getAuthorPosts
+    deactivate db
+    getAuthorPosts -> server
+  deactivate getAuthorPosts
+
+== Third level ==
+loop every post
+  
+  server -> getAuthor: resolve post author
+  activate getAuthor
+    getAuthor -> db
+    activate db
+    	db -> getAuthor
+    deactivate db
+    getAuthor -> server
+  deactivate getAuthor
+end
+
+@enduml
