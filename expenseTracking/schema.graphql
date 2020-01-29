@@ -1,35 +1,12 @@
 const schema = `
-  type user {
-    id: ID!
-    name: String
-    expenses(initialDate: String, endDate: String): [expense]
-  }
-
-  enum paymentMethod {
-    CASH
-    CREDIT_CARD
-    MSI
-    DEBIT
-  }
-
-  type expense { 
-    amount: Float!
-    timestamp: String!
-    method: paymentMethod
-  }
-
-  input expenseInput {
-    userId: ID!
-    amount: Float!
-    method: paymentMethod
-  }
+  
 
   type Query {
-    user(id: String!): user
+
   }
 
   type Mutation{
-    setExpense(input: expenseInput): Boolean
+
   }
 
   schema {

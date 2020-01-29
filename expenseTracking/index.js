@@ -5,30 +5,18 @@ const { schema } = require("./schema.graphql");
 
 const resolvers = {
   user: {
-    expenses: (_, { initialDate, endDate, userId }) => {
-      return dbFetch(`expenses/_find`, {
-        method: "POST",
-        body: JSON.stringify({
-          selector: {
-            userId
-          }
-        })
-      }).then(r => {
-        return r.docs;
-      });
+    expenses: (_, { userId }) => {
+      
     }
   },
   Query: {
     user: (_, { id }) => {
-      return dbFetch(`users/${id}`);
+      
     }
   },
   Mutation: {
     setExpense: (_, { input }) =>
-      dbFetch("expenses", {
-        method: "POST",
-        body: JSON.stringify({ ...input, timestamp: new Date().toISOString() })
-      }).then(r => r.ok)
+      
   }
 };
 
