@@ -1,23 +1,12 @@
 const { GraphQLServer } = require("graphql-yoga");
-const fetch = require("node-fetch");
-const { schema } = require("./schema.graphql");
-const API_URL = "http://13.85.67.250:5984/";
-const base64 = require("base-64");
 
-function apiFetch(path, options) {
-  return fetch(`${API_URL}${path}`, {
-    headers: {
-      Authorization: `Basic ${base64.encode(`admin:admin`)}`,
-      "content-type": "application/json"
-    },
-    ...options
-  }).then(r => r.json());
-}
+const { dbFetch } = require("./dbFetch");
+const { schema } = require("./schema.graphql");
 
 const resolvers = {
   user: {
     expenses: (_, { initialDate, endDate, userId }) => {
-      return apiFetch(`expenses/_find`, {
+      return dbFetch(`expenses/_find`, {
         method: "POST",
         body: JSON.stringify({
           selector: {
@@ -31,7 +20,7 @@ const resolvers = {
   },
   Query: {
     user: (_, { id }) => {
-      return apiFetch(`users/${id}`).then(r => {
+      return dbFetch(`users/${id}`).then(r => {
         return r;
       });
     }
