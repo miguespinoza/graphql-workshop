@@ -18,12 +18,18 @@ const schema = `
     method: paymentMethod
   }
 
+  input expenseInput {
+    userId: ID!
+    amount: Float!
+    method: paymentMethod
+  }
+
   type Query {
     user(id: String!): user
   }
 
   type Mutation{
-    setExpense( userId: ID!): expense
+    setExpense(input: expenseInput): Boolean
   }
 
   schema {

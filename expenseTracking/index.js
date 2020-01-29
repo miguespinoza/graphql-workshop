@@ -20,13 +20,15 @@ const resolvers = {
   },
   Query: {
     user: (_, { id }) => {
-      return dbFetch(`users/${id}`).then(r => {
-        return r;
-      });
+      return dbFetch(`users/${id}`);
     }
   },
   Mutation: {
-    setExpense: (_, { userId }) => "hello world"
+    setExpense: (_, { input }) =>
+      dbFetch("expenses", {
+        method: "POST",
+        body: JSON.stringify({ ...input, timestamp: new Date().toISOString() })
+      }).then(r => r.ok)
   }
 };
 
